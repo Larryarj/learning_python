@@ -1,1 +1,2 @@
-Meu primeiro repositório, para guardar meus primeiros códigos 
+Olá mundo!
+Meu primeiro repositório, para guardar meus primeiros códigos
