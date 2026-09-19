@@ -7,6 +7,8 @@ Assim se escreve em itálico *itálico*
 
 podemos __*misturar*__ as configurações
 
+~tachado~
+
 ---
 
 lista numerada:
@@ -32,8 +34,29 @@ lista de tarefas (checklist)
 
 ---
 
-<img width="250" height="332" alt="caféjava" src="https://github.com/user-attachments/assets/ab192bdf-a35d-47cf-b7af-fa4d126b41d8" />
+<img width="509" height="172" alt="word-image-2" src="https://github.com/user-attachments/assets/3130c601-85f5-4a60-9557-be6a9226bb92" />
 
 ***
 
-[acesse meu GitHub](github.com/Larryarj)
+Acesse meu Github: [Clique aqui](https://github.com/Larryarj)
+
+---
+
+tabela
+
+num | nome | nota
+---|---|---
+1 | fulano | 5
+2 | ciclano | 6,5
+
+---
+
+Com crase se cita `código`. Ex:
+
+```
+num = int(input("digite um numero: ))
+if num % 2 == 0:
+    print(f'par')
+else:
+    print(f'impar')
+```
