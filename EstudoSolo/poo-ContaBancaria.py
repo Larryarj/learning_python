@@ -1,6 +1,6 @@
 # POO software de gerenciamento de contas bancarias
 
-# versão inicial
+# atualizaçao: adicionados metodos de: ver detalhes de uma conta, ver contas no banco e ver saldo de conta
 
 # ================================
 
@@ -36,23 +36,36 @@ class Banco:
             if conta.nome == nome:
                 conta.visualizar()
 
+    def vercontas(self):
+        for conta in self.DBbanco:
+            print(f"Conta: {conta.nome}")
+        if len(self.DBbanco) == 0:
+            print('nenhuma conta no banco')
+
+    def versaldo(self, id):
+        for conta in self.DBbanco:
+            if conta.idconta == id:
+                print(f"saldo da conta {conta.nome}: {conta.saldo}")
+                return
+
 def main():
 
     bancocentral = Banco()
     nextid = 1
-    contaLa = Conta(str(nextid), 'fulano', 1000.0)
-    bancocentral.addconta(contaLa)
+    conta1 = Conta(str(nextid), 'fulano', 1000.0)
+    bancocentral.addconta(conta1)
 
     while True:
         print('--'*20)
         act = input("o que deseja fazer? digite:\n" \
                     "1 para adicionar conta ao banco\n" \
                     "2 para remover conta do banco\n" \
-                    "3 para ver detalhes de uma conta\n" )
+                    "3 para ver detalhes de uma conta\n" \
+                    "4 para ver saldo de conta\n" \
+                    "5 para ver as conta no banco\n" )
         print('--'*20)
         
         match act:
-
             case '1':
                 print('criando a conta')
                 nextid += 1
@@ -71,8 +84,15 @@ def main():
                 conta_detalhar = input('digite o nome da conta para ver detalhes: ')
                 bancocentral.detalharconta(conta_detalhar)
 
+            case '4':
+                id = input('digite o id da conta para ver o saldo: ')
+                bancocentral.versaldo(id)
+
+            case '5':
+                bancocentral.vercontas()
+
             case _:
                 print("sistema encerrado.")
                 break
-            
+
 main()
