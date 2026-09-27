@@ -1,38 +1,31 @@
 # Sofrware de gerenciamento de uma concessionária
 
-# ATUALIZAÇÃO: implementado a classe (concessionaria)
+# ATUALIZAÇÃO: implementado a opção de detalhar_carro(metodo)
 
 # ===========================================
 
 
-
 # classe para criar objetos(carros)
 class Carro:
-    def __init__(self, id,marca, modelo, ano, quilometragem):# método construtor
-        # atributos de instância
+    def __init__(self, id, marca, modelo, ano, quilometragem):
         self.id = id
         self.marca = marca
         self.modelo = modelo
         self.ano = ano
         self.quilometragem = quilometragem
 
-    # método()
     def apresentar(self):
         print(f"id: {self.id}, Marca: {self.marca}, Modelo: {self.modelo}, Ano: {self.ano}, quilometragem: {self.quilometragem}")
 
-
 # classe para gerenciar carros da concessionaria
 class concessionaria:
-    def __init__(self): # método construtor
-        # atributos de instância
+    def __init__(self):
         self.tabela_carros = []
 
-    # método()
     def adicionar_carro(self, carro):
         self.tabela_carros.append(carro)
         print("carro adicionado a garagem.")
 
-    # método()
     def retirar_carro(self, id):
         for carro_item in self.tabela_carros:
             if carro_item.id == id:
@@ -41,7 +34,6 @@ class concessionaria:
                 return
         print("carro não encontrado")
 
-    # método()
     def listar_carros(self):
         if len(self.tabela_carros) == 0:
             print("tabela de carros vázia.")
@@ -49,19 +41,27 @@ class concessionaria:
             for carro_item in self.tabela_carros:
                 print(carro_item.modelo)
 
+    def detalhar_carro(self, id):
+        for carro_item in self.tabela_carros:
+            if carro_item.id == id:
+                carro_item.apresentar()
+                return
 
 def main ():
 
     concessionaria1 = concessionaria()
-    proximo_id = 1
+    proximo_id = 3
     civic = Carro('1', 'honda', 'civic', 2009, 87731.6)
+    corolla = Carro('2', 'toyota', 'corolla', 2018, 56237.9)
     concessionaria1.adicionar_carro(civic)
+    concessionaria1.adicionar_carro(corolla)
 
     while True:
         print('--' * 20)
         acao = input("1 - Para ver os carros disponiveis\n"
                      "2 - Para adicionar um carro \n"
                      "3 - Retirar um carro\n"
+                     "4 - Para ver detalhes de um carro\n"
                      "ou digite qualquer coisa para sair\n")
         print('--' * 20)
 
@@ -96,6 +96,14 @@ def main ():
                 id_carro_obj_a_retirar = input("Digite o ID do carro que deseja retirar? ")
                 concessionaria1.retirar_carro(id_carro_obj_a_retirar)
 
+            case '4':
+                modelo_detalhar = input('digite o modelo do carro para detalhar: ')
+                print(f"tosdos os carros com o modelo {modelo_detalhar} são: ")
+
+                for carro_item in concessionaria1.tabela_carros:
+                    if carro_item.modelo == modelo_detalhar:
+                        carro_item.apresentar()
+                
             case _:
                 break
 
