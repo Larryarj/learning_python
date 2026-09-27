@@ -1,6 +1,6 @@
 # POO software de gerenciamento de contas bancarias
 
-# atualizaçao: adicionados metodos de: ver detalhes de uma conta, ver contas no banco e ver saldo de conta
+# atualizaçao: adicionados metodos de: depositar na conta, sacar da conta. removido metodo de ver saldo da conta.
 
 # ================================
 
@@ -22,6 +22,7 @@ class Banco:
     def addconta(self, contatoadd):
         self.DBbanco.append(contatoadd)
         print('Conta adicionada ao banco.')
+        #pirntar conta criada
 
     def removerconta(self, id):
         for conta in self.DBbanco:
@@ -31,40 +32,52 @@ class Banco:
                 return
         print('conta inexistente.')
 
-    def detalharconta(self, nome):
+    def detalharconta(self, id):
         for conta in self.DBbanco:
-            if conta.nome == nome:
+            if conta.idconta == id:
                 conta.visualizar()
+                return
+        print('conta inexistente.')
 
     def vercontas(self):
         for conta in self.DBbanco:
             print(f"Conta: {conta.nome}")
         if len(self.DBbanco) == 0:
-            print('nenhuma conta no banco')
+            print('nenhuma conta no banco.')
 
-    def versaldo(self, id):
+    def deposito(self, id, qtdtoadd):
         for conta in self.DBbanco:
             if conta.idconta == id:
-                print(f"saldo da conta {conta.nome}: {conta.saldo}")
+                conta.saldo += qtdtoadd
+                print(f'depósito de {qtdtoadd} efetuado da conta: {conta.nome}')
+                return
+
+    def saque(self, id, qtdtorem):
+        for conta in self.DBbanco:
+            if conta.idconta == id:
+                conta.saldo -= qtdtorem
+                print(f'saque de {qtdtorem} efetuado da conta: {conta.nome}')
                 return
 
 def main():
 
     bancocentral = Banco()
     nextid = 1
-    conta1 = Conta(str(nextid), 'fulano', 1000.0)
-    bancocentral.addconta(conta1)
+    contaLa = Conta(str(nextid), 'fulano', 1000.0)
+    bancocentral.addconta(contaLa)
 
     while True:
         print('--'*20)
-        act = input("o que deseja fazer? digite:\n" \
-                    "1 para adicionar conta ao banco\n" \
-                    "2 para remover conta do banco\n" \
-                    "3 para ver detalhes de uma conta\n" \
-                    "4 para ver saldo de conta\n" \
-                    "5 para ver as conta no banco\n" )
+        act = input("o que deseja fazer? digite:\n"
+                    "1 para adicionar conta ao banco\n"
+                    "2 para remover conta do banco\n"
+                    "3 para ver informações de uma conta\n"
+                    "4 para ver as conta no banco\n"
+                    "5 para fazer um depósito\n"
+                    "6 para faze um saque\n"
+                    "Ou digite qualquer coisa para sair: ")
         print('--'*20)
-        
+
         match act:
             case '1':
                 print('criando a conta')
@@ -81,15 +94,21 @@ def main():
                 bancocentral.removerconta(idacctoremove)
 
             case '3':
-                conta_detalhar = input('digite o nome da conta para ver detalhes: ')
-                bancocentral.detalharconta(conta_detalhar)
+                id_conta_detalhar = input('digite o número da conta para ver suas informações: ')
+                bancocentral.detalharconta(id_conta_detalhar)
 
             case '4':
-                id = input('digite o id da conta para ver o saldo: ')
-                bancocentral.versaldo(id)
+                bancocentral.vercontas()
 
             case '5':
-                bancocentral.vercontas()
+                iddeposito = input('digite o numero da conta que voce deseja fazer um deposito: ')
+                qtddeposito = float(input('digite quanto voce vai depositar: '))
+                bancocentral.deposito(iddeposito, qtddeposito)
+
+            case '6':
+                idsaque = input('digite o numero da conta que voce deseja fazer um saque: ')
+                qtdsaque = float(input('digite quanto voce vai sacar: '))
+                bancocentral.saque(idsaque, qtdsaque)
 
             case _:
                 print("sistema encerrado.")
